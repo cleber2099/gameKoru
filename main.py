@@ -5,7 +5,7 @@ from flask import request
 app = Flask(__name__, static_url_path='/static', static_folder='static')
 
 
-db = ["korao@example.com", "koruzim@example.com", "koruzito@gmail.com", "koru@yahoo.com", "superkoru@hotmail.com", "korukoru@outlook.com"]
+db = ["fork@teste.com","korao@example.com", "koruzim@example.com", "koruzito@gmail.com", "koru@yahoo.com", "superkoru@hotmail.com", "korukoru@outlook.com"]
 
 
 @app.route('/')
@@ -41,3 +41,5 @@ def login():
 
 if __name__ == '__main__':
     app.run()
+
+# teste commit léo
