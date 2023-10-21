@@ -2,11 +2,12 @@ from flask import Flask
 from flask import render_template
 from flask import request
 
-app = Flask(__name__, static_url_path='/static', static_folder='static')
+app = Flask(__name__, static_url_path='/static', static_folder='static', template_folder='templates')
 
 
-db = ["korao@example.com", "koruzim@example.com", "koruzito@gmail.com", "koru@yahoo.com", "superkoru@hotmail.com", "korukoru@outlook.com"]
+db = ["fork@teste.com","korao@example.com", "koruzim@example.com", "koruzito@gmail.com", "koru@yahoo.com", "superkoru@hotmail.com", "korukoru@outlook.com"]
 
+usuarios = {}
 
 @app.route('/')
 def home():
@@ -39,5 +40,25 @@ def login():
     return render_template('login.html')
 
 
+
+@app.route('/cadastro', methods=['POST', 'GET'])
+def cadastro():
+    if request.method == 'POST':
+        nome = request.form.get('nome')
+        email = request.form.get('email')
+        senha = request.form.get('senha')
+        usuarios[email] = {
+        'nome' : nome,
+        'email' : email,
+        'senha' : senha
+    }
+    return render_template('cadastro.html')
+
+
+
+
+
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
+
+# teste commit léo
