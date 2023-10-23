@@ -1,68 +1,16 @@
 from flask import Flask
-from flask import render_template
-from flask import request
+from routes.verificaemail import secemail
+from routes.cadastro import cadastro
+from routes.login  import login
+from routes.home import home
 
 app = Flask(__name__, static_url_path='/static', static_folder='static', template_folder='templates')
 
-
-db = ["fork@teste.com","korao@example.com", "koruzim@example.com", "koruzito@gmail.com", "koru@yahoo.com", "superkoru@hotmail.com", "korukoru@outlook.com"]
-
-usuarios = {}
-
-@app.route('/')
-def home():
-    return render_template('index.html')
-
-@app.route('/verificar_email', methods=['POST'])
-def verificar_email():
-    email = request.form.get('email')
-
-    if email in db:
-        mensagem = "E-mail já inscrito."
-    else:
-        db.append(email)
-        mensagem = "Inscrito com sucesso!"
-
-    return render_template('index.html', mensagem=mensagem)
-
-
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    if request.method == 'POST':
-        username = request.form.get('username')
-        password = request.form.get('password')
-        if username == 'koru' and password == 'koru':
-            return render_template('adm.html', emails=db)
-        else:
-            mensagem = 'User não autorizado'
-            return render_template('login.html', mensagem=mensagem)
-
-    return render_template('login.html')
-
-
-
-@app.route('/cadastro', methods=['POST', 'GET'])
-def cadastro():
-    if request.method == 'POST':
-        nome = request.form.get('nome')
-        email = request.form.get('email')
-        senha = request.form.get('senha')
-        usuarios[email] = {
-        'nome' : nome,
-        'email' : email,
-        'senha' : senha
-    }
-    return render_template('cadastro.html')
-
-
-
+app.register_blueprint(secemail)
+app.register_blueprint(cadastro)
+app.register_blueprint(login)
+app.register_blueprint(home)
 
 
 if __name__ == '__main__':
-<<<<<<< HEAD
     app.run()
-=======
-    app.run(debug=True)
-
-# alt to push
->>>>>>> efe401b32beb5f436fb9bbfd0d709ee5639e7c66
